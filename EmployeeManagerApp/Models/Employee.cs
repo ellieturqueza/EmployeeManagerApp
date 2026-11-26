@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeManagerApp.Models
 {
@@ -7,13 +8,21 @@ namespace EmployeeManagerApp.Models
         public int Id { get; set; }
 
         [Required]
-        [Display(Name = "Full Name")]
-        public required string FullName { get; set; }
+        public string FullName { get; set; }
 
         [Required]
-        public required string Department { get; set; }
+        public string Department { get; set; }
 
         [Range(1, 1000000)]
         public decimal Salary { get; set; }
+
+        public decimal CalculateAnnualBonus()
+        {
+            if(Salary < 0)
+            {
+                throw new ArgumentException("Salary cannot be negative.");
+            }
+            return Salary * 0.10m;
+        }
     }
 }
